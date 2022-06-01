@@ -78,19 +78,21 @@ const createElements = () => {
         img.setAttribute('src', el.url);
         question.textContent = el.question;
         el.choice.forEach(ele => {
-            answersBlock.insertAdjacentHTML('beforeend', `<button class='choice'>${ele}</button>`);
-            // const choice = document.createElement('div');
-            // choice.classList.add('choice');
-            // choice.textContent = el;
+            // answersBlock.insertAdjacentHTML('beforeend', `<button class='choice'>${ele}</button>`);
+            const choice = document.createElement('button');
+            choice.classList.add('choice');
+            choice.textContent = ele;
+            answersBlock.insertAdjacentElement('beforeend', choice);
         })
 
         // insert ELEMENT
         container.insertAdjacentElement('beforeend',img);
         container.insertAdjacentElement('beforeend',question);
         container.insertAdjacentElement('beforeend',answersBlock);
+        
         content.insertAdjacentElement('beforeend', container);
 
-        // Control Answer
+        // CONTROL ANSWER
         const control = (e) => {
             if(!e.target.classList.contains('choice')) return;
             console.log(e.target.textContent, el.answer);
