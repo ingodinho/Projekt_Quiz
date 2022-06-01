@@ -65,32 +65,40 @@ const content = document.querySelector('.content');
 
 const createElements = () => {
     data.forEach(el => {
+        // CREATE ELEMENTS
         const container = document.createElement('div');
-        container.classList.add('container');
         const img = document.createElement('img');
-        img.setAttribute('src', el.url);
         const question = document.createElement('h3');
-        question.textContent = el.question;
         const answersBlock = document.createElement('div');
+        // ADD CLASSES
+        container.classList.add('container');
         answersBlock.classList.add('answers-block');
+
+        // ADD CONTENT
+        img.setAttribute('src', el.url);
+        question.textContent = el.question;
         el.choice.forEach(ele => {
             answersBlock.insertAdjacentHTML('beforeend', `<button class='choice'>${ele}</button>`);
             // const choice = document.createElement('div');
             // choice.classList.add('choice');
             // choice.textContent = el;
         })
+
+        // insert ELEMENT
         container.insertAdjacentElement('beforeend',img);
         container.insertAdjacentElement('beforeend',question);
         container.insertAdjacentElement('beforeend',answersBlock);
         content.insertAdjacentElement('beforeend', container);
 
-        answersBlock.addEventListener('click', e => {
-            console.log('test');
-            console.log(e.target);
+        // Control Answer
+        const control = (e) => {
             if(!e.target.classList.contains('choice')) return;
-            console.log(e.target.textContent);
             e.target.textContent == el.answer ? e.target.classList.add('right') : e.target.classList.add('wrong');
-        })
+            answersBlock.removeEventListener('click',control);
+        }
+
+        // EVENT LISTENER
+        answersBlock.addEventListener('click', control)
     })
 }
 
