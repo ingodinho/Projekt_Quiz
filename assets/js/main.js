@@ -62,8 +62,15 @@ let data=[
 ]
 
 const content = document.querySelector('.content');
+const start = document.createElement('button');
+
+start.classList.add('start');
+start.textContent = 'Start Quiz!'
+content.insertAdjacentElement('afterbegin', start);
+
 
 const createElements = () => {
+  start.remove();
     data.forEach(el => {
         // CREATE ELEMENTS
         const container = document.createElement('div');
@@ -89,7 +96,7 @@ const createElements = () => {
         container.insertAdjacentElement('beforeend',img);
         container.insertAdjacentElement('beforeend',question);
         container.insertAdjacentElement('beforeend',answersBlock);
-        
+
         content.insertAdjacentElement('beforeend', container);
 
         // CONTROL ANSWER
@@ -105,4 +112,6 @@ const createElements = () => {
     })
 }
 
-createElements();
+
+// EVENT LISTENER 
+document.querySelector('.start').addEventListener('click', createElements);
