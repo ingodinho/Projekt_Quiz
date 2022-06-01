@@ -93,7 +93,8 @@ const createElements = () => {
         // Control Answer
         const control = (e) => {
             if(!e.target.classList.contains('choice')) return;
-            e.target.textContent == el.answer ? e.target.classList.add('right') : e.target.classList.add('wrong');
+            console.log(e.target.textContent, el.answer);
+            e.target.textContent == el.answer.toString() ? e.target.classList.add('right') : e.target.classList.add('wrong');
             answersBlock.removeEventListener('click',control);
         }
 
