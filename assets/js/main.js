@@ -68,15 +68,36 @@ start.classList.add('start');
 start.textContent = 'Start Quiz!'
 content.insertAdjacentElement('afterbegin', start);
 
+let score = 0;
+const maxScore = data.length;
+let counter = 0;
 
 const createElements = () => {
   start.remove();
+
+  // SCOREBOARD
+  const scoreBoard = document.createElement('div');
+  const scoreHeadline = document.createElement('h4');
+  const scores = document.createElement('div');
+
+  scoreBoard.classList.add('score-board');
+  scores.classList.add('scores');
+
+  scoreHeadline.textContent = 'SCORE';
+  scores.textContent = `${score} / ${maxScore}`;
+
+  scoreBoard.insertAdjacentElement('beforeend',scoreHeadline);
+  scoreBoard.insertAdjacentElement('beforeend',scores);
+  content.insertAdjacentElement('afterbegin',scoreBoard);
+
+  // QUIZ
     data.forEach(el => {
         // CREATE ELEMENTS
         const container = document.createElement('div');
         const img = document.createElement('img');
         const question = document.createElement('h3');
         const answersBlock = document.createElement('div');
+
         // ADD CLASSES
         container.classList.add('container');
         answersBlock.classList.add('answers-block');
@@ -99,11 +120,30 @@ const createElements = () => {
 
         content.insertAdjacentElement('beforeend', container);
 
+
         // CONTROL ANSWER
         const control = (e) => {
+            // Guard
             if(!e.target.classList.contains('choice')) return;
-            e.target.textContent == el.answer.toString() ? e.target.classList.add('right') : e.target.classList.add('wrong');
+
+            counter++;
+            scoreBoard.classList.remove('score-up');
+
+            if(e.target.textContent == el.answer.toString()) {
+              e.target.classList.add('right');
+              requestAnimationFrame(() => scoreBoard.classList.add('score-up'));
+              // scoreBoard.classList.add('score-up');
+              score++;
+            } else {
+              e.target.classList.add('wrong');
+            }
+            // e.target.textContent == el.answer.toString() ? e.target.classList.add('right') : e.target.classList.add('wrong');
+            scores.textContent = `${score} / ${maxScore}`;
             answersBlock.removeEventListener('click',control);
+            if(counter === data.length) {
+              setTimeout(()=> scoreBoard.classList.add('score-board-end'),1000)
+              ;
+            }
         }
 
         // EVENT LISTENER

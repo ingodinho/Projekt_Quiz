@@ -42,6 +42,33 @@ h3 {
     font-size: 2rem;
 }
 
+.score-board {
+    /* width: 100px; */
+    /* height: 100px; */
+    border-radius: 10px;
+    font-size: 5rem;
+    position: fixed;
+    background-color: #3b5bdb;
+    padding: 3rem 6rem;
+    opacity: 0.8;
+    top: 5rem;
+    right: 5rem;
+    color: #fff;
+    transform: rotate(5deg);
+}
+
+.score-board-end {
+    top: 50%;
+    right: 50%;
+    transform: translate(50%,-50%) scale(4);
+    transition: all 1s;
+    opacity: 1;
+}
+
+.score-up {
+    animation: point 1s linear;
+}
+
 .answers-block {
     display: flex;
     justify-content: center;
@@ -70,4 +97,14 @@ h3 {
 
 .wrong {
     background-color: red;
+}
+
+@keyframes point {
+    0%,100% {
+        transform: scale(1.0) rotate(5deg);
+    }
+    50% {
+        transform: scale(1.5) rotate(5deg);
+        background-color: green;
+    }
 }
